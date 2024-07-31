@@ -1,0 +1,26 @@
+#problem 1
+number = int(input("Enter a number: "))
+result = "Even" if number % 2 == 0 else "Odd"
+print(f"The number is {result}.")
+
+
+#problem 2
+num1 = int(input("Enter the first number: "))
+num2 = int(input("Enter the second number: "))
+num1, num2 = num2, num1
+print(f"After swapping: First number = {num1}, Second number = {num2}")
+
+
+#problem 3
+kilometers = float(input("Enter distance in kilometers: "))
+conversion_factor = 0.621371
+miles = kilometers * conversion_factor
+print(f"{kilometers} kilometers is equal to {miles} miles.")
+
+
+#problem 4
+principal = 200 
+rate_of_interest = 5  
+time_period = 5  
+simple_interest = (principal * rate_of_interest * time_period) / 100
+print(f"Simple Interest: Rs. {simple_interest}")
