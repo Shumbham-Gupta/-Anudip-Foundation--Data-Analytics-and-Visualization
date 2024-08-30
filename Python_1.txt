@@ -1,0 +1,100 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the data
+file_path = 'Book1.xlsx'
+data = pd.read_excel(file_path)
+
+# 1. Display the first few rows and basic information
+print("First 5 rows of the dataset:")
+print(data.head())
+
+print("\nDataset Information:")
+print(data.info())
+
+print("\nSummary Statistics:")
+print(data.describe())
+
+# 2. Data Cleaning
+# Check for missing values
+print("\nMissing Values:")
+print(data.isnull().sum())
+
+# Fill or drop missing values as appropriate (example: filling with 0)
+data.fillna(0, inplace=True)
+
+# Convert data types if necessary (e.g., convert 'Postal Code' to string)
+data['Postal Code'] = data['Postal Code'].astype(str)
+
+# 3. Descriptive Statistics
+# Total Sales, Profit, and Quantity by Category
+category_summary = data.groupby('Category').agg({
+    'Sales': 'sum',
+    'Profit': 'sum',
+    'Quantity': 'sum'
+})
+print("\nCategory Summary:")
+print(category_summary)
+
+# 4. Visualizations
+# 4.1 Bar plot: Total Sales by Category
+category_sales = data.groupby('Category')['Sales'].sum().sort_values()
+category_sales.plot(kind='barh', color='skyblue')
+plt.title('Total Sales by Category')
+plt.xlabel('Sales')
+plt.ylabel('Category')
+plt.show()
+
+# 4.2 Pie chart: Sales distribution by Region
+region_sales = data.groupby('Region')['Sales'].sum()
+region_sales.plot(kind='pie', autopct='%1.1f%%')
+plt.title('Sales Distribution by Region')
+plt.ylabel('')
+plt.show()
+
+# 4.3 Scatter plot: Sales vs. Profit
+plt.scatter(data['Sales'], data['Profit'], c='green')
+plt.title('Sales vs. Profit')
+plt.xlabel('Sales')
+plt.ylabel('Profit')
+plt.show()
+
+# 4.4 Line plot: Sales Trend by State
+state_sales = data.groupby('State')['Sales'].sum().sort_values()
+state_sales.plot(kind='line', marker='o', linestyle='-', color='purple')
+plt.title('Sales by State')
+plt.xlabel('State')
+plt.ylabel('Sales')
+plt.xticks(rotation=90)
+plt.show()
+
+# 4.5 Histogram: Distribution of Discounts
+plt.hist(data['Discount'], bins=10, color='orange', edgecolor='black')
+plt.title('Distribution of Discounts')
+plt.xlabel('Discount')
+plt.ylabel('Frequency')
+plt.show()
+
+# 5. Advanced Analysis
+# 5.1 Correlation Matrix
+correlation = data[['Sales', 'Quantity', 'Discount', 'Profit']].corr()
+print("\nCorrelation Matrix:")
+print(correlation)
+
+# 6. Custom Analysis
+# 6.1 Sales per Region for each Category
+region_category_sales = data.pivot_table(values='Sales', index='Region', columns='Category', aggfunc='sum')
+region_category_sales.plot(kind='bar', stacked=True, colormap='Paired')
+plt.title('Sales per Region for Each Category')
+plt.xlabel('Region')
+plt.ylabel('Sales')
+plt.show()
+
+# 6.2 Profit Margin by Category
+data['Profit Margin'] = (data['Profit'] / data['Sales']) * 100
+profit_margin_category = data.groupby('Category')['Profit Margin'].mean()
+profit_margin_category.plot(kind='bar', color='darkred')
+plt.title('Average Profit Margin by Category')
+plt.xlabel('Category')
+plt.ylabel('Profit Margin (%)')
+plt.show()

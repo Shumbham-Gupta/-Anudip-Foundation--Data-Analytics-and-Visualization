@@ -1,0 +1,108 @@
+create database ecommerce;
+use ecommerce;
+CREATE TABLE customer (
+customer_id varchar(10) NOT NULL,
+name varchar(100) NOT NULL,
+city varchar(65) NOT NULL,
+email varchar(45) NOT NULL,
+phone_no varchar(15) NOT NULL,
+address varchar(100) NOT NULL,
+pin_code int NOT NULL,
+PRIMARY KEY (customer_id));
+
+INSERT INTO customer (customer_id, name, city, email, phone_no, address, pin_code) VALUES
+('C001', 'John Doe', 'New York', 'john.doe@example.com', '123-456-7890', '123 Elm Street', 10001),
+('C002', 'Jane Smith', 'Los Angeles', 'jane.smith@example.com', '234-567-8901', '456 Oak Avenue', 90001),
+('C003', 'Robert Brown', 'Chicago', 'robert.brown@example.com', '345-678-9012', '789 Pine Road', 60601),
+('C004', 'Emily Davis', 'Houston', 'emily.davis@example.com', '456-789-0123', '101 Maple Lane', 77001),
+('C005', 'Michael Wilson', 'Phoenix', 'michael.wilson@example.com', '567-890-1234', '202 Birch Street', 85001),
+('C006', 'Olivia Johnson', 'Philadelphia', 'olivia.johnson@example.com', '678-901-2345', '303 Cedar Drive', 19101),
+('C007', 'James Miller', 'San Antonio', 'james.miller@example.com', '789-012-3456', '404 Spruce Court', 78201),
+('C008', 'Sophia Martinez', 'San Diego', 'sophia.martinez@example.com', '890-123-4567', '505 Redwood Boulevard', 92101),
+('C009', 'William Garcia', 'Dallas', 'william.garcia@example.com', '901-234-5678', '606 Fir Lane', 75201),
+('C010', 'Isabella Rodriguez', 'San Jose', 'isabella.rodriguez@example.com', '012-345-6789', '707 Sequoia Street', 95101),
+('C011', 'David Lee', 'Austin', 'david.lee@example.com', '123-456-7891', '808 Walnut Avenue', 73301),
+('C012', 'Mia Walker', 'Jacksonville', 'mia.walker@example.com', '234-567-8902', '909 Chestnut Street', 32201),
+('C013', 'Daniel Harris', 'San Francisco', 'daniel.harris@example.com', '345-678-9013', '1010 Pine Avenue', 94101),
+('C014', 'Charlotte Clark', 'Columbus', 'charlotte.clark@example.com', '456-789-0124', '1111 Oak Lane', 43201),
+('C015', 'Matthew Lewis', 'Fort Worth', 'matthew.lewis@example.com', '567-890-1235', '1212 Maple Drive', 76101),
+('C016', 'Amelia Young', 'Indianapolis', 'amelia.young@example.com', '678-901-2346', '1313 Birch Street', 46201),
+('C017', 'Ethan Allen', 'Charlotte', 'ethan.allen@example.com', '789-012-3457', '1414 Cedar Road', 28201),
+('C018', 'Avery King', 'Seattle', 'avery.king@example.com', '890-123-4568', '1515 Redwood Avenue', 98101),
+('C019', 'Sebastian Scott', 'Denver', 'sebastian.scott@example.com', '901-234-5679', '1616 Fir Street', 80201),
+('C020', 'Harper Adams', 'Washington', 'harper.adams@example.com', '012-345-6780', '1717 Spruce Lane', 20001);
+
+CREATE TABLE product (
+`product_id` varchar(10) NOT NULL,
+`product_name` varchar(100) NOT NULL,
+`category` varchar(65) NOT NULL,
+`sub_category` varchar(45) NOT NULL,
+`original_price` double NOT NULL,
+`selling_price` double NOT NULL,
+`stock` int NOT NULL,
+PRIMARY KEY (`product_id`)
+);
+
+
+INSERT INTO product (product_id, product_name, category, sub_category, original_price, selling_price, stock) VALUES
+('P001', 'Wireless Mouse', 'Electronics', 'Computer Accessories', 25.00, 20.00, 150),
+('P002', 'Gaming Keyboard', 'Electronics', 'Computer Accessories', 70.00, 60.00, 80),
+('P003', 'Bluetooth Headphones', 'Electronics', 'Audio Devices', 100.00, 85.00, 120),
+('P004', '4K Monitor', 'Electronics', 'Monitors', 350.00, 300.00, 50),
+('P005', 'Smartphone Charger', 'Electronics', 'Chargers', 15.00, 10.00, 200),
+('P006', 'Coffee Maker', 'Home Appliances', 'Kitchen Appliances', 80.00, 70.00, 90),
+('P007', 'Vacuum Cleaner', 'Home Appliances', 'Cleaning Equipment', 150.00, 130.00, 60),
+('P008', 'Air Purifier', 'Home Appliances', 'Air Quality', 120.00, 110.00, 70),
+('P009', 'Electric Kettle', 'Home Appliances', 'Kitchen Appliances', 45.00, 40.00, 110),
+('P010', 'Blender', 'Home Appliances', 'Kitchen Appliances', 60.00, 50.00, 80),
+('P011', 'Running Shoes', 'Fashion', 'Footwear', 90.00, 75.00, 100),
+('P012', 'Leather Jacket', 'Fashion', 'Outerwear', 200.00, 180.00, 40),
+('P013', 'Sunglasses', 'Fashion', 'Accessories', 60.00, 50.00, 150),
+('P014', 'Wristwatch', 'Fashion', 'Accessories', 150.00, 130.00, 70),
+('P015', 'Office Desk Chair', 'Furniture', 'Office Furniture', 250.00, 220.00, 30),
+('P016', 'Wooden Dining Table', 'Furniture', 'Dining Room', 400.00, 350.00, 20),
+('P017', 'Queen Size Bed', 'Furniture', 'Bedroom Furniture', 500.00, 450.00, 25),
+('P018', 'Bookshelf', 'Furniture', 'Living Room', 120.00, 100.00, 55),
+('P019', 'Camping Tent', 'Outdoor', 'Camping Gear', 120.00, 100.00, 45),
+('P020', 'Fishing Rod', 'Outdoor', 'Fishing Equipment', 80.00, 70.00, 60);
+
+
+CREATE TABLE order_details (
+order_id int NOT NULL AUTO_INCREMENT,
+customer_id varchar(10) NOT NULL,
+product_id varchar(10) NOT NULL,
+quantity double NOT NULL,
+total_price double NOT NULL,
+payment_mode varchar(60) NOT NULL,
+order_date datetime DEFAULT NULL,
+order_status varchar(20) NOT NULL,
+PRIMARY KEY (order_id),
+KEY customer_id (customer_id),
+KEY product_id (product_id),
+CONSTRAINT order_details_ibfk_1 FOREIGN KEY (customer_id)
+REFERENCES customer (customer_id),
+CONSTRAINT order_details_ibfk_2 FOREIGN KEY (product_id)
+REFERENCES product (product_id)
+);
+
+INSERT INTO order_details (customer_id, product_id, quantity, total_price, payment_mode, order_date, order_status) VALUES
+('C001', 'P001', 2, 40.00, 'Credit Card', '2024-08-01 10:30:00', 'Shipped'),
+('C002', 'P002', 1, 60.00, 'PayPal', '2024-08-01 11:00:00', 'Delivered'),
+('C003', 'P003', 3, 255.00, 'Credit Card', '2024-08-02 09:15:00', 'Processing'),
+('C004', 'P004', 1, 300.00, 'Bank Transfer', '2024-08-02 14:45:00', 'Shipped'),
+('C005', 'P005', 4, 40.00, 'Debit Card', '2024-08-03 16:00:00', 'Delivered'),
+('C006', 'P006', 1, 70.00, 'Credit Card', '2024-08-03 12:30:00', 'Processing'),
+('C007', 'P007', 2, 260.00, 'PayPal', '2024-08-04 13:00:00', 'Shipped'),
+('C008', 'P008', 1, 110.00, 'Credit Card', '2024-08-04 15:15:00', 'Delivered'),
+('C009', 'P009', 3, 120.00, 'Bank Transfer', '2024-08-05 10:45:00', 'Processing'),
+('C010', 'P010', 2, 100.00, 'Debit Card', '2024-08-05 11:30:00', 'Shipped'),
+('C011', 'P011', 1, 75.00, 'Credit Card', '2024-08-06 09:00:00', 'Delivered'),
+('C012', 'P012', 1, 180.00, 'PayPal', '2024-08-06 11:15:00', 'Processing'),
+('C013', 'P013', 2, 100.00, 'Credit Card', '2024-08-07 13:30:00', 'Shipped'),
+('C014', 'P014', 1, 130.00, 'Bank Transfer', '2024-08-07 15:00:00', 'Delivered'),
+('C015', 'P015', 1, 220.00, 'Credit Card', '2024-08-08 10:30:00', 'Processing'),
+('C016', 'P016', 1, 350.00, 'PayPal', '2024-08-08 12:00:00', 'Shipped'),
+('C017', 'P017', 1, 450.00, 'Debit Card', '2024-08-09 14:30:00', 'Delivered'),
+('C018', 'P018', 2, 200.00, 'Credit Card', '2024-08-09 16:00:00', 'Processing'),
+('C019', 'P019', 1, 100.00, 'Bank Transfer', '2024-08-10 10:00:00', 'Shipped'),
+('C020', 'P020', 2, 140.00, 'PayPal', '2024-08-10 12:30:00', 'Delivered');
